@@ -1,11 +1,23 @@
 import { Resend } from 'resend';
 
-// Initialiser Resend avec la clé API
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Vérifier si la clé API existe
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
 export async function POST(request) {
+  // Si la clé n'est pas définie, retourner une erreur explicite
+  if (!RESEND_API_KEY) {
+    console.error('❌ RESEND_API_KEY is not defined in environment variables');
+    return Response.json(
+      { 
+        success: false, 
+        error: 'Configuration email manquante. Veuillez contacter l\'administrateur.' 
+      },
+      { status: 500 }
+    );
+  }
+
   try {
-    // Récupérer les données du formulaire
+    const resend = new Resend(RESEND_API_KEY);
     const body = await request.json();
     const { name, company, email, phone, projectType, message } = body;
 
@@ -17,7 +29,7 @@ export async function POST(request) {
       );
     }
 
-    // Envoyer l'email avec Resend
+    // Envoyer l'email
     const { data, error } = await resend.emails.send({
       from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
       to: [process.env.EMAIL_TO || 'contact@votre-entreprise.com'],
@@ -74,7 +86,7 @@ export async function POST(request) {
             </div>
             <div class="footer">
               <p>Cet email a été envoyé depuis le formulaire de contact du site web.</p>
-              <p>© ${new Date().getFullYear()} YourTech</p>
+              <p>© ${new Date().getFullYear()} Fortico</p>
             </div>
           </body>
         </html>
@@ -89,7 +101,6 @@ export async function POST(request) {
       );
     }
 
-    // Réponse de succès
     return Response.json({
       success: true,
       message: 'Votre message a été envoyé avec succès !',
