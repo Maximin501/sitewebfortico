@@ -4,19 +4,19 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-arduino-dark text-white">
-      <div className="container mx-auto px-4 md:px-6 py-16">
-        <div className="grid md:grid-cols-4 gap-12">
+    <footer className="bg-arduino-dark text-white" suppressHydrationWarning>
+      <div className="container mx-auto px-4 md:px-6 py-16" suppressHydrationWarning>
+        <div className="grid md:grid-cols-4 gap-12" suppressHydrationWarning>
           {/* Colonne 1 - Logo */}
           <div>
             <Link href="/" className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 relative flex-shrink-0">
+              <div className="w-14 h-14 relative flex-shrink-0">
                 <Image
                   src="/images/logo_fortico.jpeg"
                   alt="Fortico"
                   fill
                   className="object-contain"
-                  sizes="100px"
+                  sizes="56px"
                 />
               </div>
               <span className="text-xl font-bold">
@@ -27,10 +27,17 @@ export default function Footer() {
               Solutions embarquées & IoT sur-mesure pour l'industrie 4.0.
             </p>
             <div className="flex space-x-4 mt-4">
-                <a href="https://www.facebook.com/profile.php?id=61559025178075" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">Facebook</a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">LinkedIn</a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">Twitter</a>
-              </div>
+              <a 
+                href="https://www.facebook.com/profile.php?id=61559025178075" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-400 hover:text-white transition-colors text-sm"
+              >
+                Facebook
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">LinkedIn</a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">Twitter</a>
+            </div>
           </div>
 
           {/* Colonne 2 - Navigation */}
@@ -59,7 +66,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start space-x-3">
                 <MapPin size={18} className="flex-shrink-0 mt-0.5" />
-                <span>Tamatave Madagascar</span>
+                <span>Toamasina, Madagascar</span>
               </li>
               <li className="flex items-start space-x-3 pt-2 border-t border-white/10">
                 <span className="text-arduino-green font-semibold text-sm min-w-[40px]">NIF</span>
@@ -75,7 +82,7 @@ export default function Footer() {
           {/* Colonne 4 - NDA */}
           <div>
             <h4 className="font-semibold text-white mb-4">Engagement</h4>
-            <div className="bg-white/5 rounded-lg p-4 border border-white/10">
+            <div className="bg-white/5 rounded-lg p-4 border border-white/10" suppressHydrationWarning>
               <p className="text-sm text-gray-300 leading-relaxed">
                 <span className="font-semibold text-arduino-green">🔒 NDA</span><br />
                 Confidentialité absolue de vos projets garantie.
@@ -85,7 +92,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500" suppressHydrationWarning>
           <p>© {new Date().getFullYear()} Fortico. Tous droits réservés.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="#" className="hover:text-white transition-colors">Mentions légales</Link>
