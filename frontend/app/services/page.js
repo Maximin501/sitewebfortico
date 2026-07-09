@@ -1,7 +1,7 @@
 // app/services/page.js
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { Cpu, Code, Cloud, Shield, Zap, Layers } from 'lucide-react';
+import { Cpu, Code, Cloud, Brain, Link, MonitorSmartphone } from 'lucide-react';
 
 export default function ServicesPage() {
   const services = [
@@ -22,6 +22,24 @@ export default function ServicesPage() {
       title: 'IoT & Plateformes Web',
       description: 'Connectivité Cloud, traitement de données en temps réel et création de tableaux de bord de supervision.',
       features: ['Connectivité Cloud', 'Temps réel', 'Dashboards']
+    },
+    {
+      icon: <Brain className="text-arduino-green" size={32} />,
+      title: 'Intelligence Artificielle (IA)',
+      description: 'Intégration de modèles d\'IA pour l\'analyse de données, la prédiction et l\'automatisation intelligente.',
+      features: ['Analyse prédictive', 'Traitement du langage', 'Vision par ordinateur']
+    },
+    {
+      icon: <Link className="text-arduino-green" size={32} />,
+      title: 'API & Microservices',
+      description: 'Conception et développement d\'API RESTful et GraphQL pour connecter vos systèmes et services.',
+      features: ['RESTful API', 'GraphQL', 'Documentation OpenAPI']
+    },
+    {
+      icon: <MonitorSmartphone className="text-arduino-green" size={32} />,
+      title: 'Applications Web & Mobile',
+      description: 'Développement d\'applications web responsives et d\'applications mobiles pour une expérience utilisateur optimale.',
+      features: ['React Native', 'Flutter', 'PWA']
     }
   ];
 
@@ -35,7 +53,7 @@ export default function ServicesPage() {
               Nos <span className="text-arduino-green">Services</span>
             </h1>
             <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-              Des solutions techniques complètes pour vos projets IoT
+              Des solutions techniques complètes pour vos projets, de l'embarqué à l'intelligence artificielle
             </p>
           </div>
 
