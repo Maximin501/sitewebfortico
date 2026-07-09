@@ -26,12 +26,12 @@ export default function Footer() {
             <p className="text-gray-400 text-sm leading-relaxed">
               Solutions embarquées & IoT sur-mesure pour l'industrie 4.0.
             </p>
-            <div className="flex space-x-4 mt-4 text-2xl">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">🐙</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">💼</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">🐦</a>
+            <div className="flex space-x-4 mt-4">
+                 {/* Réseaux sociaux - à configurer plus tard */}
+                 <a href="#" className="text-gray-400 hover:text-white transition-colors">GitHub</a>
+                 <a href="#" className="text-gray-400 hover:text-white transition-colors">LinkedIn</a>
+                 <a href="#" className="text-gray-400 hover:text-white transition-colors">Twitter</a>
             </div>
-          </div>
 
           {/* Colonne 2 - Navigation */}
           <div>
