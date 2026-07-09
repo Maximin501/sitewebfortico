@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Cpu, Code, Cloud } from 'lucide-react';
+import { ArrowRight, Cpu, Code, Cloud, Brain, Link as LinkIcon, MonitorSmartphone } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
@@ -8,6 +8,7 @@ export default function HomePage() {
     <>
       <Header />
       
+      {/* HERO SECTION */}
       <section className="relative bg-gradient-to-br from-arduino-dark to-gray-900 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_70%_50%,_#00979D_0%,_transparent_70%)]"></div>
@@ -30,7 +31,7 @@ export default function HomePage() {
 
             <p className="text-xl text-gray-300 max-w-2xl mb-8 leading-relaxed">
               Solutions embarquées & IoT sur-mesure. De la conception de PCB 
-              au développement de plateformes connectées.
+              au développement de plateformes connectées, en passant par l'IA.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -55,8 +56,8 @@ export default function HomePage() {
                 <div className="text-sm text-gray-400">Projets livrés</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-arduino-green">4</div>
-                <div className="text-sm text-gray-400">Secteurs d'activité</div>
+                <div className="text-3xl font-bold text-arduino-green">6</div>
+                <div className="text-sm text-gray-400">Domaines d'expertise</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-arduino-green">100%</div>
@@ -67,6 +68,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 6 PILIERS - Expertise */}
       <section className="py-16 md:py-20 bg-arduino-light">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
@@ -74,11 +76,12 @@ export default function HomePage() {
               Notre <span className="text-arduino-green">expertise</span> en un coup d'œil
             </h2>
             <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-              Une maîtrise complète de la chaîne de valeur IoT
+              Une maîtrise complète de la chaîne de valeur, du hardware à l'intelligence artificielle
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
+            {/* Hardware */}
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
               <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
                 <Cpu className="text-arduino-green" size={28} />
@@ -89,6 +92,7 @@ export default function HomePage() {
               </p>
             </div>
 
+            {/* Firmware */}
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
               <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
                 <Code className="text-arduino-green" size={28} />
@@ -99,6 +103,7 @@ export default function HomePage() {
               </p>
             </div>
 
+            {/* IoT & Cloud */}
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
               <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
                 <Cloud className="text-arduino-green" size={28} />
@@ -108,10 +113,86 @@ export default function HomePage() {
                 Connectivité cloud, traitement de données en temps réel et tableaux de bord.
               </p>
             </div>
+
+            {/* Intelligence Artificielle */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
+              <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
+                <Brain className="text-arduino-green" size={28} />
+              </div>
+              <h3 className="text-xl font-bold text-arduino-dark mb-3">Intelligence Artificielle</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Intégration de modèles d'IA pour l'analyse de données, la prédiction et l'automatisation.
+              </p>
+              <ul className="mt-3 space-y-1">
+                <li className="flex items-center text-sm text-gray-500">
+                  <span className="w-1.5 h-1.5 bg-arduino-green rounded-full mr-2"></span>
+                  Analyse prédictive
+                </li>
+                <li className="flex items-center text-sm text-gray-500">
+                  <span className="w-1.5 h-1.5 bg-arduino-green rounded-full mr-2"></span>
+                  Traitement du langage
+                </li>
+                <li className="flex items-center text-sm text-gray-500">
+                  <span className="w-1.5 h-1.5 bg-arduino-green rounded-full mr-2"></span>
+                  Vision par ordinateur
+                </li>
+              </ul>
+            </div>
+
+            {/* API & Microservices */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
+              <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
+                <LinkIcon className="text-arduino-green" size={28} />
+              </div>
+              <h3 className="text-xl font-bold text-arduino-dark mb-3">API & Microservices</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Conception et développement d'API RESTful et GraphQL pour connecter vos systèmes.
+              </p>
+              <ul className="mt-3 space-y-1">
+                <li className="flex items-center text-sm text-gray-500">
+                  <span className="w-1.5 h-1.5 bg-arduino-green rounded-full mr-2"></span>
+                  RESTful API
+                </li>
+                <li className="flex items-center text-sm text-gray-500">
+                  <span className="w-1.5 h-1.5 bg-arduino-green rounded-full mr-2"></span>
+                  GraphQL
+                </li>
+                <li className="flex items-center text-sm text-gray-500">
+                  <span className="w-1.5 h-1.5 bg-arduino-green rounded-full mr-2"></span>
+                  Documentation OpenAPI
+                </li>
+              </ul>
+            </div>
+
+            {/* Applications Web & Mobile */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
+              <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
+                <MonitorSmartphone className="text-arduino-green" size={28} />
+              </div>
+              <h3 className="text-xl font-bold text-arduino-dark mb-3">Applications Web & Mobile</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Développement d'applications web responsives et mobiles pour une expérience optimale.
+              </p>
+              <ul className="mt-3 space-y-1">
+                <li className="flex items-center text-sm text-gray-500">
+                  <span className="w-1.5 h-1.5 bg-arduino-green rounded-full mr-2"></span>
+                  React Native
+                </li>
+                <li className="flex items-center text-sm text-gray-500">
+                  <span className="w-1.5 h-1.5 bg-arduino-green rounded-full mr-2"></span>
+                  Flutter
+                </li>
+                <li className="flex items-center text-sm text-gray-500">
+                  <span className="w-1.5 h-1.5 bg-arduino-green rounded-full mr-2"></span>
+                  PWA
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* PROJETS RÉCENTS */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex justify-between items-center mb-12">

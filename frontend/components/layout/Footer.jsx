@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="bg-arduino-dark text-white">
       <div className="container mx-auto px-4 md:px-6 py-16">
         <div className="grid md:grid-cols-4 gap-12">
-          {/* Colonne 1 - Logo et description */}
+          {/* Colonne 1 - Logo */}
           <div>
             <Link href="/" className="flex items-center space-x-3 mb-4">
               <div className="w-10 h-10 relative flex-shrink-0">
@@ -16,7 +16,7 @@ export default function Footer() {
                   alt="Fortico"
                   fill
                   className="object-contain"
-                  sizes="40px"
+                  sizes="100px"
                 />
               </div>
               <span className="text-xl font-bold">
@@ -27,11 +27,11 @@ export default function Footer() {
               Solutions embarquées & IoT sur-mesure pour l'industrie 4.0.
             </p>
             <div className="flex space-x-4 mt-4">
-                 {/* Réseaux sociaux - à configurer plus tard */}
-                 <a href="#" className="text-gray-400 hover:text-white transition-colors">GitHub</a>
-                 <a href="#" className="text-gray-400 hover:text-white transition-colors">LinkedIn</a>
-                 <a href="#" className="text-gray-400 hover:text-white transition-colors">Twitter</a>
-            </div>
+                <a href="https://www.facebook.com/profile.php?id=61559025178075" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">Facebook</a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">LinkedIn</a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">Twitter</a>
+              </div>
+          </div>
 
           {/* Colonne 2 - Navigation */}
           <div>
@@ -59,12 +59,20 @@ export default function Footer() {
               </li>
               <li className="flex items-start space-x-3">
                 <MapPin size={18} className="flex-shrink-0 mt-0.5" />
-                <span>Madagascar</span>
+                <span>Tamatave Madagascar</span>
+              </li>
+              <li className="flex items-start space-x-3 pt-2 border-t border-white/10">
+                <span className="text-arduino-green font-semibold text-sm min-w-[40px]">NIF</span>
+                <span className="text-sm">VOTRE_NIF_ICI</span>
+              </li>
+              <li className="flex items-start space-x-3">
+                <span className="text-arduino-green font-semibold text-sm min-w-[40px]">STAT</span>
+                <span className="text-sm">VOTRE_STAT_ICI</span>
               </li>
             </ul>
           </div>
 
-          {/* Colonne 4 - Engagement NDA */}
+          {/* Colonne 4 - NDA */}
           <div>
             <h4 className="font-semibold text-white mb-4">Engagement</h4>
             <div className="bg-white/5 rounded-lg p-4 border border-white/10">
