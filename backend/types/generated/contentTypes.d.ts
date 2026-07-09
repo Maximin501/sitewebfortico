@@ -441,6 +441,42 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiOffreOffre extends Struct.CollectionTypeSchema {
+  collectionName: 'offres';
+  info: {
+    displayName: 'Offre';
+    pluralName: 'offres';
+    singularName: 'offre';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    actif: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date_limite: Schema.Attribute.DateTime;
+    description: Schema.Attribute.Blocks;
+    email: Schema.Attribute.Email;
+    lieu: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::offre.offre'> &
+      Schema.Attribute.Private;
+    missions: Schema.Attribute.Blocks & Schema.Attribute.Required;
+    profil: Schema.Attribute.Blocks & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    qualites: Schema.Attribute.JSON;
+    slug: Schema.Attribute.UID<'titre'>;
+    telephone: Schema.Attribute.String;
+    titre: Schema.Attribute.String & Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<['Stage', 'CDI', 'CDD', 'Alternance']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProjectProject extends Struct.CollectionTypeSchema {
   collectionName: 'projects';
   info: {
@@ -998,6 +1034,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::offre.offre': ApiOffreOffre;
       'api::project.project': ApiProjectProject;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

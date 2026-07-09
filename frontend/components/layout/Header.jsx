@@ -12,6 +12,7 @@ export default function Header() {
     { href: '/services', label: 'Services' },
     { href: '/portfolio', label: 'Portfolio' },
     { href: '/methodologie', label: 'Méthodologie' },
+    { href: '/recrutement', label: 'Recrutement' },
     { href: '/contact', label: 'Contact' },
   ];
 
