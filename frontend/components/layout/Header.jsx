@@ -28,7 +28,7 @@ export default function Header() {
                 alt="Fortico"
                 fill
                 className="object-contain"
-                sizes="40px"
+                sizes="200px"
                 priority
               />
             </div>
