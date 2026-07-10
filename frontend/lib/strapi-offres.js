@@ -1,5 +1,5 @@
 // lib/strapi-offres.js
-const STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
+const STRAPI_URL = process.env.STRAPI_URL || 'https://strapi-fortico.onrender.com';
 
 export async function fetchOffresAPI(path, query = {}) {
   // Construire l'URL avec les paramètres
