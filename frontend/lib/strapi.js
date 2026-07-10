@@ -2,7 +2,7 @@
 import qs from 'qs';
 
 // Utiliser la variable d'environnement ou une URL par défaut
-const STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
+const STRAPI_URL = process.env.STRAPI_URL || 'https://strapi-fortico.onrender.com';
 
 // Détecter si on est en production
 const isProduction = process.env.NODE_ENV === 'production';
