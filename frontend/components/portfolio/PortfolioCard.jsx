@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-const STRAPI_URL = 'http://localhost:1337';
+const STRAPI_URL = 'https://strapi-fortico.onrender.com';
 
 export default function PortfolioCard({ project }) {
   // Récupérer l'URL de l'image de couverture
