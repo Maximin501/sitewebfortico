@@ -1,6 +1,4 @@
 // lib/strapi.js
-import qs from 'qs';
-
 // Utiliser la variable d'environnement ou une URL par défaut
 const STRAPI_URL = process.env.STRAPI_URL || 'https://strapi-fortico.onrender.com';
 
@@ -18,11 +16,34 @@ export async function fetchAPI(path, query = {}) {
     return { data: [] };
   }
 
-  const queryString = qs.stringify(query, {
-    encodeValuesOnly: true,
-  });
+  // Construire l'URL avec les paramètres pour Strapi v5
+  const queryParams = new URLSearchParams();
+  
+  // ✅ Gestion du populate simplifié pour Strapi v5
+  if (query.populate) {
+    queryParams.append('populate', query.populate);
+  }
+  
+  // ✅ Gestion du tri
+  if (query.sort) {
+    queryParams.append('sort', query.sort);
+  }
+  
+  // ✅ Gestion des filtres
+  if (query.filters) {
+    Object.entries(query.filters).forEach(([key, value]) => {
+      if (typeof value === 'object' && value !== null) {
+        // Pour les filtres avec opérateurs (ex: $eq)
+        Object.entries(value).forEach(([operator, operatorValue]) => {
+          queryParams.append(`filters[${key}][${operator}]`, operatorValue);
+        });
+      } else {
+        queryParams.append(`filters[${key}][$eq]`, value);
+      }
+    });
+  }
 
-  const url = `${STRAPI_URL}/api/${path}${queryString ? `?${queryString}` : ''}`;
+  const url = `${STRAPI_URL}/api/${path}?${queryParams.toString()}`;
   
   console.log('📡 Appel API:', url);
 
@@ -61,11 +82,8 @@ export async function getAllProjects() {
   console.log('📚 getAllProjects called');
   try {
     const data = await fetchAPI('projects', {
-      populate: {
-        cover_image: '*',
-        gallery: '*',
-      },
-      sort: ['year:desc'],
+      populate: '*', // ✅ Syntaxe simplifiée pour Strapi v5
+      sort: 'year:desc', // ✅ Syntaxe simplifiée pour le tri
     });
     return data.data || [];
   } catch (error) {
@@ -83,10 +101,7 @@ export async function getProjectBySlug(slug) {
           $eq: slug,
         },
       },
-      populate: {
-        cover_image: '*',
-        gallery: '*',
-      },
+      populate: '*', // ✅ Syntaxe simplifiée pour Strapi v5
     });
     return data.data?.[0] || null;
   } catch (error) {
@@ -120,11 +135,8 @@ export async function getProjectsByCategory(category) {
           $eq: category,
         },
       },
-      populate: {
-        cover_image: '*',
-        gallery: '*',
-      },
-      sort: ['year:desc'],
+      populate: '*', // ✅ Syntaxe simplifiée pour Strapi v5
+      sort: 'year:desc', // ✅ Syntaxe simplifiée pour le tri
     });
     return data.data || [];
   } catch (error) {
