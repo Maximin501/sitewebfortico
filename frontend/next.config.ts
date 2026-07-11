@@ -6,13 +6,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'strapi-fortico.onrender.com',
         port: '',
-        pathname: '/**',
+        pathname: '/uploads/**',
       },
     ],
-    // Important pour Strapi
-    domains: ['strapi-fortico.onrender.com'],
-    // Désactiver l'optimisation si nécessaire
-    unoptimized: process.env.NODE_ENV === 'production' ? true : false,
+    // Désactiver l'optimisation pour les images Strapi (solution de secours)
+    unoptimized: true,
   },
 };
 
