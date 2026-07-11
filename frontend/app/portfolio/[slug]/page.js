@@ -5,6 +5,9 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { getProjectBySlug, getAllProjects } from '@/lib/strapi';
 
+// ✅ Ajout de l'URL du backend
+const STRAPI_URL = process.env.STRAPI_URL || 'https://strapi-fortico.onrender.com';
+
 // Générer les pages statiques
 export async function generateStaticParams() {
   const projects = await getAllProjects();
@@ -25,7 +28,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${project.title} | YourTech`,
+    title: `${project.title} | Fortico`,
     description: project.challenge?.substring(0, 160) || '',
   };
 }
@@ -38,8 +41,9 @@ export default async function ProjectPage({ params }) {
     notFound();
   }
 
+  // ✅ Construction de l'URL complète de l'image
   const coverUrl = project.cover_image?.url
-    ? `${process.env.STRAPI_URL}${project.cover_image.url}`
+    ? `${STRAPI_URL}${project.cover_image.url}`
     : null;
 
   return (
@@ -124,7 +128,7 @@ export default async function ProjectPage({ params }) {
                 {project.gallery.map((image, index) => (
                   <div key={index} className="relative aspect-square rounded-xl overflow-hidden">
                     <Image
-                      src={`${process.env.STRAPI_URL}${image.url}`}
+                      src={`${STRAPI_URL}${image.url}`}
                       alt={`${project.title} - ${index + 1}`}
                       fill
                       className="object-cover hover:scale-105 transition-transform duration-300"
