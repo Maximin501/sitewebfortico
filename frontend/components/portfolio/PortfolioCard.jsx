@@ -2,10 +2,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-const STRAPI_URL = 'https://strapi-fortico.onrender.com';
+// ✅ Ajout de l'URL du backend
+const STRAPI_URL = process.env.STRAPI_URL || 'https://strapi-fortico.onrender.com';
 
 export default function PortfolioCard({ project }) {
-  // Récupérer l'URL de l'image de couverture
+  // ✅ Construction de l'URL complète de l'image
   const coverUrl = project.cover_image?.url
     ? `${STRAPI_URL}${project.cover_image.url}`
     : null;
