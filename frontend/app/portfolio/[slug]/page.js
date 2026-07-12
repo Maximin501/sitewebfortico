@@ -5,21 +5,29 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { getProjectBySlug, getAllProjects } from '@/lib/strapi';
 
-// ✅ Ajout de l'URL du backend
 const STRAPI_URL = process.env.STRAPI_URL || 'https://strapi-fortico.onrender.com';
 
 // Générer les pages statiques
 export async function generateStaticParams() {
   const projects = await getAllProjects();
   return projects.map((project) => ({
-    slug: project.slug,
+    slug: project.slug || String(project.id),
   }));
 }
 
 // Métadonnées pour le SEO
 export async function generateMetadata({ params }) {
   const paramsData = await params;
-  const project = await getProjectBySlug(paramsData.slug);
+  const slug = paramsData.slug;
+  
+  // Récupérer le projet (par slug ou ID)
+  let project = await getProjectBySlug(slug);
+  
+  // Si le slug est un ID numérique, chercher par ID
+  if (!project && !isNaN(slug)) {
+    const allProjects = await getAllProjects();
+    project = allProjects.find(p => p.id === parseInt(slug));
+  }
   
   if (!project) {
     return {
@@ -35,13 +43,21 @@ export async function generateMetadata({ params }) {
 
 export default async function ProjectPage({ params }) {
   const paramsData = await params;
-  const project = await getProjectBySlug(paramsData.slug);
+  const slug = paramsData.slug;
+  
+  // Récupérer le projet (par slug ou ID)
+  let project = await getProjectBySlug(slug);
+  
+  // Si le slug est un ID numérique, chercher par ID
+  if (!project && !isNaN(slug)) {
+    const allProjects = await getAllProjects();
+    project = allProjects.find(p => p.id === parseInt(slug));
+  }
 
   if (!project) {
     notFound();
   }
 
-  // ✅ Construction de l'URL complète de l'image
   const coverUrl = project.cover_image?.url
     ? `${STRAPI_URL}${project.cover_image.url}`
     : null;
@@ -51,7 +67,7 @@ export default async function ProjectPage({ params }) {
       <Header />
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-          {/* En-tête du projet */}
+          {/* En-tête */}
           <div className="mb-8">
             <span className="text-sm font-semibold text-arduino-green uppercase tracking-wider">
               {project.category}
@@ -80,7 +96,7 @@ export default async function ProjectPage({ params }) {
             </div>
           )}
 
-          {/* Défi / Problématique */}
+          {/* Défi */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-arduino-dark mb-4 flex items-center">
               <span className="w-1 h-8 bg-arduino-green rounded-full mr-3"></span>
@@ -92,7 +108,7 @@ export default async function ProjectPage({ params }) {
             />
           </div>
 
-          {/* Solution Apportée */}
+          {/* Solution */}
           <div className="mb-12 bg-arduino-light rounded-2xl p-8">
             <h2 className="text-2xl font-bold text-arduino-dark mb-4 flex items-center">
               <span className="w-1 h-8 bg-arduino-green rounded-full mr-3"></span>
@@ -117,7 +133,7 @@ export default async function ProjectPage({ params }) {
             </div>
           )}
 
-          {/* Galerie d'images */}
+          {/* Galerie */}
           {project.gallery && project.gallery.length > 0 && (
             <div className="mt-12">
               <h2 className="text-2xl font-bold text-arduino-dark mb-6 flex items-center">
@@ -139,7 +155,7 @@ export default async function ProjectPage({ params }) {
             </div>
           )}
 
-          {/* Bouton retour */}
+          {/* Retour */}
           <div className="mt-12 pt-8 border-t border-gray-200">
             <a
               href="/portfolio"
