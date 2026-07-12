@@ -1,9 +1,27 @@
+// app/page.js
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Cpu, Code, Cloud, Brain, Link as LinkIcon, MonitorSmartphone } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { getAllProjects } from '@/lib/strapi';
 
-export default function HomePage() {
+// Fonction pour construire l'URL de l'image
+const getImageUrl = (image) => {
+  if (!image) return null;
+  const STRAPI_URL = process.env.STRAPI_URL || 'https://strapi-fortico.onrender.com';
+  if (image.url?.startsWith('http')) return image.url;
+  const baseUrl = STRAPI_URL.replace(/\/+$/, '');
+  const imagePath = image.url?.replace(/^\/+/, '');
+  return imagePath ? `${baseUrl}/${imagePath}` : null;
+};
+
+export default async function HomePage() {
+  // Récupérer tous les projets
+  const allProjects = await getAllProjects();
+  // Prendre les 3 plus récents
+  const recentProjects = allProjects.slice(0, 3);
+
   return (
     <>
       <Header />
@@ -192,7 +210,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* PROJETS RÉCENTS */}
+      {/* PROJETS RÉCENTS - AFFICHAGE DYNAMIQUE */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex justify-between items-center mb-12">
@@ -211,31 +229,56 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="group cursor-pointer">
-                <div className="bg-gray-100 rounded-2xl overflow-hidden aspect-[4/3] relative">
-                  <div className="absolute inset-0 bg-gradient-to-t from-arduino-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                    <span className="text-white font-medium">Voir le projet →</span>
-                  </div>
-                  <div className="w-full h-full bg-gradient-to-br from-arduino-green/20 to-arduino-dark/20 flex items-center justify-center">
-                    <span className="text-gray-400">Image du projet</span>
-                  </div>
-                </div>
-                <div className="mt-4">
-                  <span className="text-xs font-semibold text-arduino-green uppercase tracking-wider">
-                    IoT
-                  </span>
-                  <h3 className="text-lg font-bold text-arduino-dark mt-1 group-hover:text-arduino-green transition-colors">
-                    Projet de démonstration {i}
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-1">
-                    Solution complète de supervision à distance
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          {recentProjects.length === 0 ? (
+            <div className="text-center py-12 bg-gray-50 rounded-2xl">
+              <p className="text-gray-500">Aucun projet disponible pour le moment.</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-8">
+              {recentProjects.map((project) => {
+                const coverUrl = getImageUrl(project.cover_image);
+                return (
+                  <Link
+                    key={project.id}
+                    href={`/portfolio/${project.slug || project.id}`}
+                    className="group cursor-pointer"
+                  >
+                    <div className="bg-gray-100 rounded-2xl overflow-hidden aspect-[4/3] relative">
+                      {coverUrl ? (
+                        <Image
+                          src={coverUrl}
+                          alt={project.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-arduino-green/20 to-arduino-dark/20 flex items-center justify-center">
+                          <span className="text-gray-400">🔧</span>
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-arduino-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <span className="text-white font-medium">Voir le projet →</span>
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <span className="text-xs font-semibold text-arduino-green uppercase tracking-wider">
+                        {project.category || 'Projet'}
+                      </span>
+                      <h3 className="text-lg font-bold text-arduino-dark mt-1 group-hover:text-arduino-green transition-colors">
+                        {project.title}
+                      </h3>
+                      <p className="text-gray-600 text-sm mt-1 line-clamp-2">
+                        {project.challenge?.substring(0, 80) || ''}
+                      </p>
+                      {project.year && (
+                        <p className="text-xs text-gray-400 mt-1">{project.year}</p>
+                      )}
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
