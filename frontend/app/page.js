@@ -6,21 +6,17 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { getAllProjects } from '@/lib/strapi';
 
-// Fonction pour construire l'URL de l'image
-const getImageUrl = (image) => {
-  if (!image) return null;
-  const STRAPI_URL = process.env.STRAPI_URL || 'https://strapi-fortico.onrender.com';
-  if (image.url?.startsWith('http')) return image.url;
-  const baseUrl = STRAPI_URL.replace(/\/+$/, '');
-  const imagePath = image.url?.replace(/^\/+/, '');
-  return imagePath ? `${baseUrl}/${imagePath}` : null;
-};
+// URL du backend
+const STRAPI_URL = process.env.STRAPI_URL || 'https://strapi-fortico.onrender.com';
 
 export default async function HomePage() {
   // Récupérer tous les projets
   const allProjects = await getAllProjects();
-  // Prendre les 3 plus récents
+  console.log('📚 Nombre total de projets:', allProjects.length);
+  
+  // Prendre les 3 plus récents (ou tous si moins de 3)
   const recentProjects = allProjects.slice(0, 3);
+  console.log('📚 Projets récents:', recentProjects.map(p => p.title));
 
   return (
     <>
@@ -99,7 +95,6 @@ export default async function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Hardware */}
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
               <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
                 <Cpu className="text-arduino-green" size={28} />
@@ -110,7 +105,6 @@ export default async function HomePage() {
               </p>
             </div>
 
-            {/* Firmware */}
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
               <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
                 <Code className="text-arduino-green" size={28} />
@@ -121,7 +115,6 @@ export default async function HomePage() {
               </p>
             </div>
 
-            {/* IoT & Cloud */}
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
               <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
                 <Cloud className="text-arduino-green" size={28} />
@@ -132,7 +125,6 @@ export default async function HomePage() {
               </p>
             </div>
 
-            {/* Intelligence Artificielle */}
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
               <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
                 <Brain className="text-arduino-green" size={28} />
@@ -157,7 +149,6 @@ export default async function HomePage() {
               </ul>
             </div>
 
-            {/* API & Microservices */}
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
               <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
                 <LinkIcon className="text-arduino-green" size={28} />
@@ -182,7 +173,6 @@ export default async function HomePage() {
               </ul>
             </div>
 
-            {/* Applications Web & Mobile */}
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
               <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
                 <MonitorSmartphone className="text-arduino-green" size={28} />
@@ -210,7 +200,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* PROJETS RÉCENTS - AFFICHAGE DYNAMIQUE */}
+      {/* PROJETS RÉCENTS */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex justify-between items-center mb-12">
@@ -236,7 +226,14 @@ export default async function HomePage() {
           ) : (
             <div className="grid md:grid-cols-3 gap-8">
               {recentProjects.map((project) => {
-                const coverUrl = getImageUrl(project.cover_image);
+                // Construire l'URL de l'image
+                let coverUrl = null;
+                if (project.cover_image?.url) {
+                  const baseUrl = STRAPI_URL.replace(/\/+$/, '');
+                  const imagePath = project.cover_image.url.replace(/^\/+/, '');
+                  coverUrl = `${baseUrl}/${imagePath}`;
+                }
+
                 return (
                   <Link
                     key={project.id}
@@ -250,10 +247,11 @@ export default async function HomePage() {
                           alt={project.title}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          unoptimized={true}
                         />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-arduino-green/20 to-arduino-dark/20 flex items-center justify-center">
-                          <span className="text-gray-400">🔧</span>
+                          <span className="text-gray-400 text-4xl">🔧</span>
                         </div>
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-arduino-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
