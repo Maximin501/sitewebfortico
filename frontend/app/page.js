@@ -5,128 +5,106 @@ import { ArrowRight, Cpu, Code, Cloud, Brain, Link as LinkIcon, MonitorSmartphon
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { getAllProjects } from '@/lib/strapi';
-import { fetchHomepage } from '@/lib/strapi-homepage'; // ✅ IMPORT AJOUTÉ
 
 // URL du backend
 const STRAPI_URL = process.env.STRAPI_URL || 'https://strapi-fortico.onrender.com';
 
 export default async function HomePage() {
-  // ✅ Récupérer les données de la homepage
-  const homepage = await fetchHomepage();
-  console.log('📚 Homepage data:', homepage);
-
   // Récupérer tous les projets
   const allProjects = await getAllProjects();
-  const totalProjects = allProjects.length; // ✅ Nombre total de projets
-  console.log('📚 Nombre total de projets:', totalProjects);
-  
-  // Prendre les 3 plus récents
+  const totalProjects = allProjects.length;
   const recentProjects = allProjects.slice(0, 3);
-  console.log('📚 Projets récents:', recentProjects.map(p => p.title));
 
   return (
     <>
       <Header />
       
-      {/* HERO SECTION - DYNAMIQUE */}
-      {/* HERO SECTION - AVEC IMAGE ILLUSTRATION */}
-<section className="relative bg-gradient-to-br from-arduino-dark to-gray-900 text-white overflow-hidden">
-  {/* Effet de fond */}
-  <div className="absolute inset-0 opacity-10">
-    <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_70%_50%,_#00979D_0%,_transparent_70%)]"></div>
-    <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-[radial-gradient(circle_at_30%_80%,_#00979D_0%,_transparent_60%)]"></div>
-  </div>
-
-  <div className="relative container mx-auto px-4 md:px-6 py-20 md:py-32">
-    <div className="grid md:grid-cols-2 gap-12 items-center">
-      
-      {/* Colonne Gauche - Texte */}
-      <div className="max-w-2xl">
-        {/* Badge */}
-        <div className="inline-flex items-center bg-arduino-green/20 border border-arduino-green/30 rounded-full px-4 py-1.5 mb-6">
-          <span className="w-2 h-2 bg-arduino-green rounded-full mr-2 animate-pulse"></span>
-          <span className="text-sm text-arduino-green font-medium">
-            {homepage?.badge_text || 'Expertise en systèmes embarqués'}
-          </span>
+      {/* HERO SECTION - AVEC ILLUSTRATION */}
+      <section className="relative bg-gradient-to-br from-arduino-dark to-gray-900 text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_70%_50%,_#00979D_0%,_transparent_70%)]"></div>
+          <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-[radial-gradient(circle_at_30%_80%,_#00979D_0%,_transparent_60%)]"></div>
         </div>
 
-        {/* Titre */}
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-          {homepage?.title || "Nous donnons de l'"}
-          <br />
-          <span className="text-arduino-green">
-            {homepage?.title_highlight || 'intelligence'}
-          </span>{' '}
-          {homepage?.title_end || 'à vos systèmes'}
-        </h1>
+        <div className="relative container mx-auto px-4 md:px-6 py-20 md:py-32">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            
+            {/* Colonne Gauche - Texte */}
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center bg-arduino-green/20 border border-arduino-green/30 rounded-full px-4 py-1.5 mb-6">
+                <span className="w-2 h-2 bg-arduino-green rounded-full mr-2 animate-pulse"></span>
+                <span className="text-sm text-arduino-green font-medium">
+                  Expertise en systèmes embarqués
+                </span>
+              </div>
 
-        {/* Description */}
-        <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
-          {homepage?.description || "Solutions embarquées & IoT sur-mesure. De la conception de PCB au développement de plateformes connectées, en passant par l'IA."}
-        </p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                Nous donnons de l'<br />
+                <span className="text-arduino-green">intelligence</span> à vos systèmes
+              </h1>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-4">
-          <Link
-            href="/contact"
-            className="group inline-flex items-center justify-center bg-arduino-green text-white px-8 py-4 rounded-full font-semibold hover:bg-arduino-green/90 transition-all hover:scale-105"
-          >
-            {homepage?.cta_primary_text || 'Commencer votre projet'}
-            <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-          </Link>
-          <Link
-            href="/portfolio"
-            className="inline-flex items-center justify-center border border-white/30 text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-all"
-          >
-            {homepage?.cta_secondary_text || 'Voir nos réalisations'}
-          </Link>
+              <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
+                Solutions embarquées &amp; IoT sur-mesure. De la conception de PCB au développement de plateformes connectées, en passant par l'IA.
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center justify-center bg-arduino-green text-white px-8 py-4 rounded-full font-semibold hover:bg-arduino-green/90 transition-all hover:scale-105"
+                >
+                  Commencer votre projet
+                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                </Link>
+                <Link
+                  href="/portfolio"
+                  className="inline-flex items-center justify-center border border-white/30 text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-all"
+                >
+                  Voir nos réalisations
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/10">
+                <div>
+                  <div className="text-3xl font-bold text-arduino-green">{totalProjects}+</div>
+                  <div className="text-sm text-gray-400">Projets livrés</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-arduino-green">6</div>
+                  <div className="text-sm text-gray-400">Domaines d'expertise</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-arduino-green">100%</div>
+                  <div className="text-sm text-gray-400">Confidentialité garantie</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Colonne Droite - IMAGE ILLUSTRATION */}
+            <div className="hidden md:flex justify-center items-center">
+              <div className="relative w-full max-w-md">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+                  <Image
+                    src="/images/systeme.png"
+                    alt="Systèmes embarqués - Illustration"
+                    width={500}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-arduino-green/20 via-transparent to-transparent pointer-events-none"></div>
+                </div>
+                <div className="absolute -bottom-4 -left-4 bg-arduino-dark/90 backdrop-blur-sm border border-arduino-green/30 rounded-xl px-4 py-2 text-sm hidden lg:block">
+                  <span className="text-arduino-green font-semibold">✦</span> IoT &amp; Systèmes Embarqués
+                </div>
+                <div className="absolute -top-4 -right-4 bg-arduino-dark/90 backdrop-blur-sm border border-arduino-green/30 rounded-xl px-4 py-2 text-sm hidden lg:block">
+                  <span className="text-arduino-green font-semibold">✦</span> Sécurité &amp; Fiabilité
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
-
-        {/* Statistiques */}
-        <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/10">
-          <div>
-            <div className="text-3xl font-bold text-arduino-green">{totalProjects}+</div>
-            <div className="text-sm text-gray-400">Projets livrés</div>
-          </div>
-          <div>
-            <div className="text-3xl font-bold text-arduino-green">6</div>
-            <div className="text-sm text-gray-400">Domaines d'expertise</div>
-          </div>
-          <div>
-            <div className="text-3xl font-bold text-arduino-green">100%</div>
-            <div className="text-sm text-gray-400">Confidentialité garantie</div>
-          </div>
-        </div>
-      </div>
-
-      {/* ✅ Colonne Droite - IMAGE ILLUSTRATION */}
-      <div className="hidden md:flex justify-center items-center">
-        <div className="relative w-full max-w-md">
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-            <Image
-              src="/images/hero-illustration.svg"
-              alt="Illustration IoT - Systèmes embarqués"
-              width={500}
-              height={400}
-              className="w-full h-auto object-cover"
-              priority
-            />
-            {/* Effet de surbrillance */}
-            <div className="absolute inset-0 bg-gradient-to-t from-arduino-green/20 via-transparent to-transparent pointer-events-none"></div>
-          </div>
-          {/* Petit badge flottant */}
-          <div className="absolute -bottom-4 -left-4 bg-arduino-dark/90 backdrop-blur-sm border border-arduino-green/30 rounded-xl px-4 py-2 text-sm hidden lg:block">
-            <span className="text-arduino-green font-semibold">✦</span> IoT & Systèmes Embarqués
-          </div>
-          <div className="absolute -top-4 -right-4 bg-arduino-dark/90 backdrop-blur-sm border border-arduino-green/30 rounded-xl px-4 py-2 text-sm hidden lg:block">
-            <span className="text-arduino-green font-semibold">✦</span> Sécurité & Fiabilité
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* 6 PILIERS - Expertise */}
       <section className="py-16 md:py-20 bg-arduino-light">
@@ -168,7 +146,7 @@ export default async function HomePage() {
               <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
                 <Cloud className="text-arduino-green" size={28} />
               </div>
-              <h3 className="text-xl font-bold text-arduino-dark mb-3">IoT & Cloud</h3>
+              <h3 className="text-xl font-bold text-arduino-dark mb-3">IoT &amp; Cloud</h3>
               <p className="text-gray-600 leading-relaxed">
                 Connectivité cloud, traitement de données en temps réel et tableaux de bord.
               </p>
@@ -204,7 +182,7 @@ export default async function HomePage() {
               <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
                 <LinkIcon className="text-arduino-green" size={28} />
               </div>
-              <h3 className="text-xl font-bold text-arduino-dark mb-3">API & Microservices</h3>
+              <h3 className="text-xl font-bold text-arduino-dark mb-3">API &amp; Microservices</h3>
               <p className="text-gray-600 leading-relaxed">
                 Conception et développement d'API RESTful et GraphQL pour connecter vos systèmes.
               </p>
@@ -229,7 +207,7 @@ export default async function HomePage() {
               <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
                 <MonitorSmartphone className="text-arduino-green" size={28} />
               </div>
-              <h3 className="text-xl font-bold text-arduino-dark mb-3">Applications Web & Mobile</h3>
+              <h3 className="text-xl font-bold text-arduino-dark mb-3">Applications Web &amp; Mobile</h3>
               <p className="text-gray-600 leading-relaxed">
                 Développement d'applications web responsives et mobiles pour une expérience optimale.
               </p>
