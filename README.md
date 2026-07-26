@@ -111,19 +111,6 @@ Site web professionnel pour **Fortico** - spécialiste en systèmes embarqués e
 - npm >= 10.x
 - Git
 
-### Cloner le projet
-```bash
-git clone https://github.com/Maximin501/sitewebfortico.git
-cd sitewebfortico
-
-cd frontend
-npm install
-npm run dev
-
-cd backend
-npm install
-npm run develop
-
 📄 Licence
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus d'informations.
 
@@ -148,3 +135,18 @@ Vercel
 Render
 
 Lucide Icons
+
+
+### Cloner le projet
+```bash
+git clone https://github.com/Maximin501/sitewebfortico.git
+cd sitewebfortico
+
+cd frontend
+npm install
+npm run dev
+
+cd backend
+npm install
+npm run develop
+
