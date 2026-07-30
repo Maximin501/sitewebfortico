@@ -9,8 +9,21 @@ const nextConfig = {
         pathname: '/uploads/**',
       },
     ],
-    // Désactiver l'optimisation pour les images Strapi (solution de secours)
     unoptimized: true,
+  },
+  // ✅ Permettre les origines externes
+  allowedDevOrigins: ['192.168.1.100', 'localhost', '192.168.1.*'],
+  // ✅ Configuration pour l'upload de fichiers
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
+  },
+  // ✅ Augmenter la limite de taille des requêtes
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
   },
 };
 
