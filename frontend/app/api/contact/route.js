@@ -123,14 +123,15 @@ export async function POST(request) {
     `;
 
     // ✅ Envoyer l'email
-    const { data, error } = await resend.emails.send({
-      from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
-      to: [process.env.EMAIL_TO || 'vitasoam@gmail.com'],
-      subject: `Nouvelle demande de devis - ${projectType}`,
-      replyTo: email,
-      html: htmlContent,
-      attachments: attachments.length > 0 ? attachments : undefined,
-    });
+   // ✅ Envoyer l'email
+const { data, error } = await resend.emails.send({
+  from: 'contact@fortico.com', // ⚠️ Doit être un domaine vérifié sur Resend
+  to: ['fortico261@gmail.com'],
+  subject: `Nouvelle demande de devis - ${projectType}`,
+  replyTo: email,
+  html: htmlContent,
+  attachments: attachments.length > 0 ? attachments : undefined,
+});
 
     if (error) {
       console.error('❌ Erreur Resend:', error);
