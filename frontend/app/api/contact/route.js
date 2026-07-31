@@ -1,12 +1,9 @@
 // app/api/contact/route.js
 import { Resend } from 'resend';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// ✅ La configuration bodyParser se fait via route.config dans Next.js 16
+// Mais pour l'upload de fichiers, on utilise directement request.formData()
 
 export async function POST(request) {
   console.log('📨 Contact API called');
@@ -123,15 +120,14 @@ export async function POST(request) {
     `;
 
     // ✅ Envoyer l'email
-   // ✅ Envoyer l'email
-const { data, error } = await resend.emails.send({
-  from: 'contact@fortico.com', // ⚠️ Doit être un domaine vérifié sur Resend
-  to: ['fortico261@gmail.com'],
-  subject: `Nouvelle demande de devis - ${projectType}`,
-  replyTo: email,
-  html: htmlContent,
-  attachments: attachments.length > 0 ? attachments : undefined,
-});
+    const { data, error } = await resend.emails.send({
+      from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
+      to: [process.env.EMAIL_TO || 'vitasoam@gmail.com'],
+      subject: `Nouvelle demande de devis - ${projectType}`,
+      replyTo: email,
+      html: htmlContent,
+      attachments: attachments.length > 0 ? attachments : undefined,
+    });
 
     if (error) {
       console.error('❌ Erreur Resend:', error);
