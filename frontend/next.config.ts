@@ -16,13 +16,14 @@ const nextConfig = {
   // ✅ Configuration pour l'upload de fichiers
   experimental: {
     serverActions: {
-      bodySizeLimit: '10mb',
+      bodySizeLimit: '20mb', // Augmenté à 20MB
     },
   },
   // ✅ Augmenter la limite de taille des requêtes
   api: {
+    responseLimit: false, // Désactiver la limite de réponse
     bodyParser: {
-      sizeLimit: '10mb',
+      sizeLimit: '20mb', // Augmenté à 20MB
     },
   },
 };
