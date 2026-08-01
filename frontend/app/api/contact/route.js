@@ -2,14 +2,14 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-// ✅ La configuration bodyParser se fait via route.config dans Next.js 16
-// Mais pour l'upload de fichiers, on utilise directement request.formData()
-
 export async function POST(request) {
   console.log('📨 Contact API called');
   
   try {
+    // 1. Vérifier la clé API
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
+    console.log('🔑 RESEND_API_KEY existe:', !!RESEND_API_KEY);
+    console.log('🔑 RESEND_API_KEY (début):', RESEND_API_KEY?.substring(0, 10) || 'non défini');
     
     if (!RESEND_API_KEY) {
       console.error('❌ RESEND_API_KEY is not defined');
@@ -19,7 +19,8 @@ export async function POST(request) {
       );
     }
 
-    // ✅ Récupérer les données du formulaire multipart
+    // 2. Récupérer les données du formulaire
+    console.log('📝 Récupération du FormData...');
     const formData = await request.formData();
     
     const name = formData.get('name');
@@ -28,26 +29,30 @@ export async function POST(request) {
     const phone = formData.get('phone') || '';
     const projectType = formData.get('projectType') || 'Général';
     const message = formData.get('message');
-    
-    // ✅ Récupérer tous les fichiers
     const files = formData.getAll('files');
     
-    console.log('📝 Données reçues:', { name, email, projectType, filesCount: files.length });
+    console.log('📝 Données reçues:', { 
+      name: name || 'non fourni', 
+      email: email || 'non fourni', 
+      projectType, 
+      filesCount: files.length 
+    });
 
-    // Validation
+    // 3. Validation
     if (!name || !email || !message) {
+      console.error('❌ Champs obligatoires manquants');
       return NextResponse.json(
         { error: 'Veuillez remplir tous les champs obligatoires.' },
         { status: 400 }
       );
     }
 
-    const resend = new Resend(RESEND_API_KEY);
-
-    // ✅ Préparer les pièces jointes
+    // 4. Préparer les pièces jointes
+    console.log('📎 Préparation des pièces jointes...');
     const attachments = await Promise.all(
       files.map(async (file) => {
         const buffer = await file.arrayBuffer();
+        console.log(`📎 Fichier: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`);
         return {
           filename: file.name,
           content: Buffer.from(buffer),
@@ -55,7 +60,9 @@ export async function POST(request) {
       })
     );
 
-    // ✅ Construction du HTML
+    console.log(`📎 ${attachments.length} pièce(s) jointe(s) préparée(s)`);
+
+    // 5. Construction du HTML
     const htmlContent = `
       <!DOCTYPE html>
       <html>
@@ -119,10 +126,21 @@ export async function POST(request) {
       </html>
     `;
 
-    // ✅ Envoyer l'email
+    // 6. Envoyer l'email
+    const fromEmail = process.env.EMAIL_FROM || 'onboarding@resend.dev';
+    const toEmail = process.env.EMAIL_TO || 'fortico261@gmail.com';
+    
+    console.log(`📧 Envoi de l'email...`);
+    console.log(`📧 From: ${fromEmail}`);
+    console.log(`📧 To: ${toEmail}`);
+    console.log(`📧 Subject: Nouvelle demande de devis - ${projectType}`);
+    console.log(`📧 Attachments: ${attachments.length}`);
+
+    const resend = new Resend(RESEND_API_KEY);
+
     const { data, error } = await resend.emails.send({
-      from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
-      to: [process.env.EMAIL_TO || 'vitasoam@gmail.com'],
+      from: fromEmail,
+      to: [toEmail],
       subject: `Nouvelle demande de devis - ${projectType}`,
       replyTo: email,
       html: htmlContent,
@@ -130,23 +148,33 @@ export async function POST(request) {
     });
 
     if (error) {
-      console.error('❌ Erreur Resend:', error);
+      console.error('❌ Erreur Resend détaillée:', JSON.stringify(error, null, 2));
+      console.error('❌ Status Code:', error.statusCode);
+      console.error('❌ Message:', error.message);
       return NextResponse.json(
-        { success: false, error: "Erreur lors de l'envoi de l'email." },
-        { status: 500 }
+        { 
+          success: false, 
+          error: error.message || "Erreur lors de l'envoi de l'email." 
+        },
+        { status: error.statusCode || 500 }
       );
     }
 
     console.log('✅ Email envoyé avec succès !');
+    console.log('📧 Data:', data);
     return NextResponse.json({
       success: true,
       message: 'Votre message a été envoyé avec succès !',
     });
 
   } catch (error) {
-    console.error('❌ Erreur générale:', error);
+    console.error('❌ Erreur générale détaillée:', error);
+    console.error('❌ Stack:', error.stack);
     return NextResponse.json(
-      { success: false, error: "Une erreur est survenue." },
+      { 
+        success: false, 
+        error: error.message || "Une erreur est survenue." 
+      },
       { status: 500 }
     );
   }
