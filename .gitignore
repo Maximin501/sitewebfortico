@@ -11,3 +11,5 @@ frontend/.next/
 *.swp
 *.swo
 .vercel
+.vercel
+frontend/.vercel
