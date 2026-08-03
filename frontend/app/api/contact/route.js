@@ -1,6 +1,6 @@
 // app/api/contact/route.js
 import { NextResponse } from 'next/server';
-import { EmailJS } from '@emailjs/nodejs';
+import { send } from '@emailjs/nodejs';
 
 // Vos identifiants EmailJS
 const SERVICE_ID = 'service_t2iyyjq';
@@ -9,7 +9,7 @@ const PUBLIC_KEY = '0ZETnJ8ul1ZO4sHQZ';
 const PRIVATE_KEY = process.env.EMAILJS_PRIVATE_KEY || 'VOTRE_PRIVATE_KEY';
 
 export async function POST(request) {
-  console.log('📨 Contact API called (EmailJS - Serveur)');
+  console.log('📨 Contact API called (EmailJS - Node.js)');
   
   try {
     const formData = await request.formData();
@@ -34,13 +34,6 @@ export async function POST(request) {
       );
     }
 
-    // Initialiser EmailJS
-    const emailjs = new EmailJS({
-      publicKey: PUBLIC_KEY,
-      privateKey: PRIVATE_KEY,
-    });
-
-    // Préparer les paramètres
     const templateParams = {
       name: name,
       company: company || 'Non spécifié',
@@ -54,10 +47,14 @@ export async function POST(request) {
     console.log('📧 Envoi via EmailJS...');
 
     // Envoyer l'email
-    const response = await emailjs.send(
+    const response = await send(
       SERVICE_ID,
       TEMPLATE_ID,
-      templateParams
+      templateParams,
+      {
+        publicKey: PUBLIC_KEY,
+        privateKey: PRIVATE_KEY,
+      }
     );
 
     console.log('✅ Email envoyé avec succès !', response);
