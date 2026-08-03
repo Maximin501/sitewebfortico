@@ -2,15 +2,28 @@
 import { NextResponse } from 'next/server';
 import emailjs from '@emailjs/browser';
 
-// Vos identifiants EmailJS
-const SERVICE_ID = 'service_t2iyyjq';
-const TEMPLATE_ID = 'template_xmibcr4';
-const PUBLIC_KEY = '0ZETnJ8ul1ZO4sHQZ';
-
 export async function POST(request) {
   console.log('📨 Contact API called (EmailJS)');
   
   try {
+    // Récupérer les variables d'environnement
+    const SERVICE_ID = process.env.EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = process.env.EMAILJS_PUBLIC_KEY;
+    
+    console.log('🔑 SERVICE_ID existe:', !!SERVICE_ID);
+    console.log('🔑 TEMPLATE_ID existe:', !!TEMPLATE_ID);
+    console.log('🔑 PUBLIC_KEY existe:', !!PUBLIC_KEY);
+    
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      console.error('❌ Configuration EmailJS manquante');
+      return NextResponse.json(
+        { success: false, error: 'Configuration email manquante.' },
+        { status: 500 }
+      );
+    }
+
+    // Récupérer les données du formulaire
     const formData = await request.formData();
     
     const name = formData.get('name');
@@ -43,7 +56,7 @@ export async function POST(request) {
       phone: phone || 'Non spécifié',
       projectType: projectType,
       message: message,
-      to_email: 'fortico261@gmail.com', // ⚠️ Destinataire final
+      to_email: 'fortico261@gmail.com', // Destinataire final
     };
 
     console.log('📧 Envoi via EmailJS...');
