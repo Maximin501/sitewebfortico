@@ -120,15 +120,16 @@ export default async function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Hardware */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
-              <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
-                <Cpu className="text-arduino-green" size={28} />
-              </div>
-              <h3 className="text-xl font-bold text-arduino-dark mb-3">Hardware</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Conception de schémas électroniques et routage de PCB multi-couches.
-              </p>
-            </div>
+            {/* Hardware & Mécanique */}
+         <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
+          <div className="w-14 h-14 bg-arduino-green/10 rounded-full flex items-center justify-center mb-6">
+            <Cpu className="text-arduino-green" size={28} />
+                  </div>
+           <h3 className="text-xl font-bold text-arduino-dark mb-3">Hardware & Mécanique</h3>
+           <p className="text-gray-600 leading-relaxed">
+               Conception de schémas électroniques, routage de PCB multi-couches et intégration mécanique.
+                 </p>
+        </div>
 
             {/* Firmware */}
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-t-4 border-arduino-green">
