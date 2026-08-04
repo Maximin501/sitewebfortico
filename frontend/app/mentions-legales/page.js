@@ -65,7 +65,8 @@ export default function MentionsLegalesPage() {
 
             {/* 5. Cookies */}
             <div>
-              <h2 className="text-2xl font-bold text-arduino-dark mb-4">5. Cookies</h2              <div className="bg-arduino-light rounded-xl p-6 space-y-2">
+              <h2 className="text-2xl font-bold text-arduino-dark mb-4">5. Cookies</h2>
+              <div className="bg-arduino-light rounded-xl p-6 space-y-2">
                 <p>Ce site utilise des cookies pour améliorer votre expérience de navigation. Vous pouvez gérer vos préférences de cookies dans les paramètres de votre navigateur.</p>
               </div>
             </div>
