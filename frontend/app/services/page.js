@@ -1,15 +1,21 @@
 // app/services/page.js
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { Cpu, Code, Cloud, Brain, Link, MonitorSmartphone } from 'lucide-react';
+import { Cpu, Code, Cloud, Brain, Link as LinkIcon, MonitorSmartphone } from 'lucide-react';
 
 export default function ServicesPage() {
   const services = [
     {
       icon: <Cpu className="text-arduino-green" size={32} />,
-      title: 'R&D & Prototypage',
-      description: 'Conception de schémas électroniques, routage de circuits imprimés (PCB) multi-couches avec KiCad.',
-      features: ['Schémas électroniques', 'PCB multi-couches', 'Simulation']
+      title: 'Hardware & Mécanique',
+      description: 'Conception de schémas électroniques, routage de circuits imprimés (PCB) multi-couches avec KiCad, intégration de composants mécaniques et conception de boîtiers.',
+      features: [
+        'Schémas électroniques',
+        'PCB multi-couches',
+        'Simulation',
+        'Conception mécanique (SolidWorks)',
+        'Intégration système'
+      ]
     },
     {
       icon: <Code className="text-arduino-green" size={32} />,
@@ -30,7 +36,7 @@ export default function ServicesPage() {
       features: ['Analyse prédictive', 'Traitement du langage', 'Vision par ordinateur']
     },
     {
-      icon: <Link className="text-arduino-green" size={32} />,
+      icon: <LinkIcon className="text-arduino-green" size={32} />,
       title: 'API & Microservices',
       description: 'Conception et développement d\'API RESTful et GraphQL pour connecter vos systèmes et services.',
       features: ['RESTful API', 'GraphQL', 'Documentation OpenAPI']
