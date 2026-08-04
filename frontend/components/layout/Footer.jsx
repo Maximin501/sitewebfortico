@@ -35,8 +35,14 @@ export default function Footer() {
               >
                 Facebook
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">LinkedIn</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">Twitter</a>
+              <a 
+                href="https://www.linkedin.com/in/fortico-madagascar-4077053bb?utm_source=share_via&utm_content=profile&utm_medium=member_android" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-400 hover:text-white transition-colors text-sm"
+              >
+                LinkedIn
+              </a>
             </div>
           </div>
 
@@ -58,7 +64,7 @@ export default function Footer() {
             <ul className="space-y-3 text-gray-400">
               <li className="flex items-start space-x-3">
                 <Mail size={18} className="flex-shrink-0 mt-0.5" />
-                <span>contact@fortico.com</span>
+                <span>fortico261@gmail.com</span>
               </li>
               <li className="flex items-start space-x-3">
                 <Phone size={18} className="flex-shrink-0 mt-0.5" />
@@ -67,14 +73,6 @@ export default function Footer() {
               <li className="flex items-start space-x-3">
                 <MapPin size={18} className="flex-shrink-0 mt-0.5" />
                 <span>Toamasina, Madagascar</span>
-              </li>
-              <li className="flex items-start space-x-3 pt-2 border-t border-white/10">
-                <span className="text-arduino-green font-semibold text-sm min-w-[40px]">NIF</span>
-                <span className="text-sm">VOTRE_NIF_ICI</span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <span className="text-arduino-green font-semibold text-sm min-w-[40px]">STAT</span>
-                <span className="text-sm">VOTRE_STAT_ICI</span>
               </li>
             </ul>
           </div>
@@ -95,8 +93,8 @@ export default function Footer() {
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500" suppressHydrationWarning>
           <p>© {new Date().getFullYear()} Fortico. Tous droits réservés.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="#" className="hover:text-white transition-colors">Mentions légales</Link>
-            <Link href="#" className="hover:text-white transition-colors">Politique de confidentialité</Link>
+            <Link href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</Link>
+            <Link href="/politique-confidentialite" className="hover:text-white transition-colors">Politique de confidentialité</Link>
           </div>
         </div>
       </div>
