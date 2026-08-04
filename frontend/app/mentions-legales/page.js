@@ -54,7 +54,7 @@ export default function MentionsLegalesPage() {
               </div>
             </div>
 
-            {/* 4. Confidentialité et données personnelles */}
+            {/* 4. Confidentialité */}
             <div>
               <h2 className="text-2xl font-bold text-arduino-dark mb-4">4. Confidentialité et données personnelles</h2>
               <div className="bg-arduino-light rounded-xl p-6 space-y-2">
